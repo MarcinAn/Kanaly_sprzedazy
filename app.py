@@ -246,15 +246,6 @@ def tab3_bar_sales_canal_gender(store):
     Output("bar-sales-canal", "figure"), [Input("prod_dropdown-canal", "value")]
 )
 def tab3_bar_sales_canal(store):
-    sorting_order = [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday",
-    ]
     truncated = df.merged[(df.merged["Store_type"] == store)]
     grouped = (
         truncated[truncated["total_amt"] > 0]
@@ -264,7 +255,7 @@ def tab3_bar_sales_canal(store):
         .unstack()
     )
     grouped.index = pd.CategoricalIndex(
-        grouped.index, categories=sorting_order, ordered=True
+        grouped.index, categories=sorting(), ordered=True
     )
     grouped = grouped.sort_index()
     traces = []
